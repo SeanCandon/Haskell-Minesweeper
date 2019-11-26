@@ -151,7 +151,7 @@ clearSquare window box grid size bs f = do
     let newgrid = select box grid -- select box and return updated grid
     -- check if user has won
     let w = win newgrid
-    if (w == 1) then do
+    if (w == True) then do
       getBody window #+ [ UI.div #+ [ string "You win!"] ] -- win message
       return ()
     else do -- if user has not won clear window and draw updated grid
