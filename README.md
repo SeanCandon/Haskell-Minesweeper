@@ -74,4 +74,4 @@ play the safest possible move determined by the AI Player.
 
 ![alt text](/images/lost.png)
 
-![alt text](/images/won/png)
+![alt text](/images/won.png)
