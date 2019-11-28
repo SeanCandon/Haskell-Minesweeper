@@ -19,7 +19,7 @@ import Minesweeper
 start :: IO ()
 start = do
   wh <- getScreenSize
-  let size = 14
+  let size = 10
   let buttonSize = getOptimalPix wh size
   let grid = createGrid 0 size []
   startGUI defaultConfig (draw True True buttonSize grid grid size [])
@@ -88,7 +88,7 @@ draw first alive bs ((Box m ch r c v n):boxes) grid size uielems window = do
           b <- UI.button # set style [("background-color","red"),("width",w),("height",h)]
                          # set (attr "class") ("buttonboi")
           draw first alive bs boxes grid size (uielems ++ [return b]) window
-        else do -- otherwise a blue button is created
+        else do -- otherwise a blue button is created for when box is marked
           b <- UI.button # set style [("background-color","blue"),("width",w),("height",h)]
                          # set (attr "class") ("buttonboi")
                          # set (attr "oncontextmenu") ("return false;")
@@ -180,7 +180,7 @@ afterFirstClick :: Window -> Box -> [Box] -> Int -> (Int,Int) -> Bool -> UI ()
 afterFirstClick window box grid size bs f = do
   g <- liftIO newStdGen
   let mineAmount = size * 2
-  let mineIndexes = sort (take (mineAmount+9) . nub $ (randomRs (0,(size*size)-1) g :: [Int]))
+  let mineIndexes = (take (mineAmount+9) . nub $ (randomRs (0,(size*size)-1) g :: [Int]))
   let ng = addMines grid mineAmount mineIndexes box
   let newgrid = select box ng
   h <- getElementsByClassName window "buttonboi"
